@@ -53,6 +53,13 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if message.content.startswith('$list') and message.author.id in authorized:
+        res = ""
+        for user in authorized:
+            res += str(user)+"\n"
+    
+        await message.channel.send(res)
+
     if message.content.startswith('$auth') and message.author.id in authorized:
         for mention in message.mentions:
             authorized.add( mention.id )
